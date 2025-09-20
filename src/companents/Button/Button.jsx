@@ -2,10 +2,13 @@ import "./style.css";
 
 const Button = (props) => {
      return <button style={{
-          backgroundColor: props.bg
+          backgroundColor: props.bg,
+          opacity: props.op,
+          cursor: props.cr,
      }} className='Button' onClick={props.onClick}>
 
-          {props.title === undefined ? "Button":props.title}
+          {props.title === undefined ? "Button" : props.title}
+
      </button>;
 };
 

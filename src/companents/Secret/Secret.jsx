@@ -1,34 +1,56 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from '../Button/Button';
-import Input from '../Input/Input';
 
-const DualSecret = () => {
-     const [showInput1, setShowInput1] = useState(true);
-     const [showInput2, setShowInput2] = useState(true);
-     const [inputValue, setInputValue] = useState('');
+function Stopwatch() {
+     const [seconds, setSeconds] = useState(0);
+     const [isRunning, setIsRunning] = useState(false);
 
-     const toggleInput1 = () => setShowInput1(prev => !prev);
-     const toggleInput2 = () => setShowInput2(prev => !prev);
+     useEffect(() => {
+          let interval;
+          if (isRunning) {
+               interval = setInterval(() => {
+                    setSeconds(prev => prev + 1);
+               }, 1000);
+          } else {
+               clearInterval(interval);
+          }
+          return () => clearInterval(interval);
+     }, [isRunning]);
+
+     const handleStart = () => {
+          setIsRunning(true);
+     };
+
+     const handleStop = () => {
+          setIsRunning(false);
+     };
+
+     const handleReset = () => {
+          setIsRunning(false);
+          setSeconds(0);
+     };
 
      return (
-          <div className='div'>
-               <Button onClick={toggleInput1} title='Secret' />
-               {showInput1 && (
-                    <div>
-                         <Input type="text" pl="Input 1" />
-                    </div>
+          <div style={{ textAlign: 'center', marginTop: '50px' }}>
+               <h1>Sekundomer</h1>
+               <h2>{seconds} sekund</h2>
+
+               {!isRunning && (
+                    <Button onClick={handleStart} title='Start' />
                )}
 
-               <Button onClick={toggleInput2} style={{ marginTop: '20px' }} title='Secret' />
-               {showInput2 && (
-                    <div>
-                         <Input type="text" pl="Input 2"
-                              value={inputValue}
-                              onChange={e => setInputValue(e.target.value)} />
-                    </div>
-               )}
+               <Button
+                    onClick={handleStop}
+                    disabled={!isRunning}
+                    title='Stop'
+                    op={ isRunning ? 1 : 0.5}
+                    cr={ isRunning ? "pointer" : "not-allowed"}
+               />
+
+               <Button onClick={handleReset} style={{ marginLeft: '10px' }} title='Refresh' />
+
           </div>
      );
-};
+}
 
-export default DualSecret;
+export default Stopwatch;
