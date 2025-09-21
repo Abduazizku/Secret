@@ -8,7 +8,7 @@ const Button = (props) => {
      }} className='Button' onClick={props.onClick}>
 
           {props.title === undefined ? "Button" : props.title}
-
+         
      </button>;
 };
 

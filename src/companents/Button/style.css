@@ -1,11 +1,11 @@
 .Button{
           border: 1px solid black;
      cursor: pointer;
-     padding: 0 20px 0 20px;
      border-radius: 5px;
      font-weight: 300;
      font-size: 18px;
      width: 100px;
      margin-top: 10px;
+     text-align: center;
     
 }
